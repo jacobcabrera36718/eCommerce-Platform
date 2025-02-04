@@ -1,5 +1,6 @@
 ﻿using System.Xml.Serialization;
 using eCommerce_Platform.Models;
+using Library.eCommerce.Services;
 
 
 namespace eCommerce_Platform
@@ -18,7 +19,7 @@ namespace eCommerce_Platform
             Console.WriteLine("4. Delete an Inventory Item");
             Console.WriteLine("0. Quit");
 
-            List<Product?> list = new List<Product?>();
+            List<Product?> list = ProductServiceProxy.Current.Products;
 
             char choice;
 
@@ -78,6 +79,7 @@ namespace eCommerce_Platform
 
         }
 
+        //add new products function
         static void AddProduct(List<string?> list)
         {
             var newProduct = Console.ReadLine();
