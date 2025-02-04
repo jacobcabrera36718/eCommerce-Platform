@@ -28,10 +28,5 @@ namespace eCommerce_Platform.Models
         {
             return Display ?? string.Empty;
         }
-
-
-
-
-
     }
 }

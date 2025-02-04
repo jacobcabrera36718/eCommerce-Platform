@@ -9,7 +9,6 @@ namespace eCommerce_Platform
     {
         static void Main(string[] args)
         {
-            var lastKey = 1;
 
             //provide user menu
             Console.WriteLine("Welcome to my Shop");
@@ -36,9 +35,8 @@ namespace eCommerce_Platform
                     case '1':
                         //create case
                         //add to list
-                        list.Add(new Product
+                        ProductServiceProxy.Current.AddOrUpdate(new Product
                         {
-                            Id = lastKey++,
                             Name = Console.ReadLine(),
                         });
                         break;
@@ -51,7 +49,10 @@ namespace eCommerce_Platform
                         if(selectedProduct != null)
                         {
                             selectedProduct.Name = Console.ReadLine() ?? "Error";
+                            ProductServiceProxy.Current.AddOrUpdate(selectedProduct);
+
                         }
+
                         
                         //replace with new product
                         break;
@@ -65,8 +66,7 @@ namespace eCommerce_Platform
                         //select and delete product from list
                         Console.WriteLine("Which product would you like to delete?");
                         selection = int.Parse(Console.ReadLine() ?? "-1");
-                        selectedProduct = list.FirstOrDefault(p => p.Id == selection);
-                        list.Remove(selectedProduct);
+                        ProductServiceProxy.Current.Delete(selection);
                         break;
                     case '0':
                         break;
