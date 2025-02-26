@@ -63,6 +63,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\Library.eCommerce\Library.eCommerce.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <Compile Update="Views\InventoryManagementView.xaml.cs">
 	    <DependentUpon>InventoryManagementView.xaml</DependentUpon>
 	  </Compile>
