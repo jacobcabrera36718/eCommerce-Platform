@@ -20,4 +20,9 @@ public partial class InventoryManagementView : ContentPage
     {
 		Shell.Current.GoToAsync("//MainPage");
     }
+
+    private void Add_Clicked(object sender, EventArgs e)
+    {
+        Shell.Current.GoToAsync("//ProductDetailView");
+    }
 }
