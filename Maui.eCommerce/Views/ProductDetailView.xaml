@@ -5,9 +5,12 @@
              Title="ProductDetailView">
     <VerticalStackLayout>
         <Label 
-            Text="Product Details!"
+            Text="Name:"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
+        <Entry
+            Text="{Binding Name}"
+            />
         <Button 
             Text="Return"
             Clicked="Add_Return_Clicked"
