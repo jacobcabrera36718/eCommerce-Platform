@@ -11,6 +11,10 @@
         <Entry
             Text="{Binding Name}"
             />
+        <Button
+            Text="Submit"
+            Clicked="Submit_Clicked"
+            />
         <Button 
             Text="Return"
             Clicked="Add_Return_Clicked"
