@@ -8,9 +8,8 @@ public partial class ProductDetailView : ContentPage
 {
 	public ProductDetailView()
 	{
-		InitializeComponent();
-		BindingContext = new ProductViewModel();
-	}
+		InitializeComponent();  
+    }
 
     private void Add_Return_Clicked(object sender, EventArgs e)
     {
@@ -19,8 +18,14 @@ public partial class ProductDetailView : ContentPage
 
     private void Submit_Clicked(object sender, EventArgs e)
     {
-        var name = (BindingContext as ProductViewModel).Name;
-        ProductServiceProxy.Current.AddOrUpdate(new Product { Name = name });
+        var name = (BindingContext as ProductViewModel)?.Name;
+        var stock = (BindingContext as ProductViewModel)?.Stock;
+        ProductServiceProxy.Current.AddOrUpdate(new Product { Name = name, Stock = stock ?? 0});
         Shell.Current.GoToAsync("//InventoryManagement");
+    }
+
+    private void ContentPage_NavigatedTo(object sender, NavigatedToEventArgs e)
+    {
+        BindingContext = new ProductViewModel();
     }
 }
