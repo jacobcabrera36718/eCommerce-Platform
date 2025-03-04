@@ -37,6 +37,7 @@
             />
         <Button
                 Text="Edit"
+                Clicked="Edit_Clicked"
             />
         <Button
                 Text="Delete"

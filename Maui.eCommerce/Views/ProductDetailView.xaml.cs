@@ -4,12 +4,15 @@ using Maui.eCommerce.ViewModels;
 
 namespace Maui.eCommerce.Views;
 
+[QueryProperty(nameof(ProductId), "productId")]
 public partial class ProductDetailView : ContentPage
 {
 	public ProductDetailView()
 	{
 		InitializeComponent();  
     }
+
+    public int ProductId { get; set; }
 
     private void Add_Return_Clicked(object sender, EventArgs e)
     {
@@ -26,6 +29,14 @@ public partial class ProductDetailView : ContentPage
 
     private void ContentPage_NavigatedTo(object sender, NavigatedToEventArgs e)
     {
-        BindingContext = new ProductViewModel();
+        if (ProductId == 0) 
+        {
+            BindingContext = new ProductViewModel();
+        }
+        else
+        {
+            BindingContext = new ProductViewModel(ProductServiceProxy.Current.GetById(ProductId));
+        }
     }
+
 }
