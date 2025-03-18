@@ -13,6 +13,7 @@
         <ListView
             ItemsSource="{Binding Products}"
             SelectedItem="{Binding SelectedProduct}"
+            SelectionMode="Single"
             >
             <ListView.ItemTemplate>
                 <DataTemplate>

@@ -19,6 +19,7 @@
             />
         <Entry
             Text="{Binding Stock}"
+            Keyboard="Numeric"
             />
         <Button
             Text="Submit"

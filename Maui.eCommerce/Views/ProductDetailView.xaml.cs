@@ -21,10 +21,19 @@ public partial class ProductDetailView : ContentPage
 
     private void Submit_Clicked(object sender, EventArgs e)
     {
-        var name = (BindingContext as ProductViewModel)?.Name;
-        var stock = (BindingContext as ProductViewModel)?.Stock;
-        ProductServiceProxy.Current.AddOrUpdate(new Product { Name = name, Stock = stock ?? 0});
-        Shell.Current.GoToAsync("//InventoryManagement");
+        var vm = BindingContext as ProductViewModel;
+        if (vm != null)
+        {
+            var product = new Product
+            {
+                Id = vm.Model?.Id ?? 0, // For edits, pass along the ID
+                Name = vm.Name,
+                Stock = vm.Stock ?? 0
+            };
+
+            ProductServiceProxy.Current.AddOrUpdate(product);
+            Shell.Current.GoToAsync("//InventoryManagement");
+        }
     }
 
     private void ContentPage_NavigatedTo(object sender, NavigatedToEventArgs e)
