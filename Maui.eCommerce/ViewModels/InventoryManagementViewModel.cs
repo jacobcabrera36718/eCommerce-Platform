@@ -14,6 +14,7 @@ namespace Maui.eCommerce.ViewModels
     public class InventoryManagementViewModel : INotifyPropertyChanged
     {
         private Product? selectedProduct;
+        public string? Query {  get; set; }
         public Product? SelectedProduct
         {
             get => selectedProduct;
@@ -42,11 +43,13 @@ namespace Maui.eCommerce.ViewModels
             NotifyPropertyChanged(nameof(Products));
         }
 
+
         public ObservableCollection<Product?> Products 
         {
             get
             {
-                return new ObservableCollection<Product?>(_svc.Products);
+                var filteredList = _svc.Products.Where(p => p?.Name?.ToLower().Contains(Query?.ToLower() ?? String.Empty) ?? false);
+                return new ObservableCollection<Product?>(filteredList);
             }
         }
 

@@ -6,11 +6,16 @@
              NavigatedTo="ContentPage_NavigatedTo"
              >
     <VerticalStackLayout>
-        <Label 
-            Text="Inventory Management!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-        <ListView
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Entry Text="{Binding Query}" Grid.Column="0"/>
+            <Button Text="Search" Grid.Column="1" Clicked="Search_Clicked"/>
+        </Grid>
+ 
+            <ListView
             ItemsSource="{Binding Products}"
             SelectedItem="{Binding SelectedProduct}"
             SelectionMode="Single"
