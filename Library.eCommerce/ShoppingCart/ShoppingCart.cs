@@ -74,7 +74,7 @@ namespace Library.eCommerce.ShoppingCart
                 var product = inventory.Products.FirstOrDefault(p => p.Id == item.Key);
                 if (product != null)
                 {
-                    Console.WriteLine($"{product.Name} - Quantity: {item.Value}");
+                    Console.WriteLine($"{product.Name} -  Quantity: {item.Value}");
                 }
             }
         }
