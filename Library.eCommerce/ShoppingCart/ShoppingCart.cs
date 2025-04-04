@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Library.eCommerce.Services;
 
-namespace Library.eCommerce.ShoppingCart
+/*namespace Library.eCommerce.ShoppingCart
 {
     public class ShoppingCart
     {
@@ -112,3 +112,4 @@ namespace Library.eCommerce.ShoppingCart
         }
     }
 }
+*/

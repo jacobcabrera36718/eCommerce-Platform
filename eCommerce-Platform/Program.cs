@@ -92,7 +92,7 @@ namespace eCommerce_Platform
                         int productId = int.Parse(Console.ReadLine() ?? "-1");
                         Console.Write("Enter quantity: ");
                         int quantity = int.Parse(Console.ReadLine() ?? "0");
-                        ShoppingCartServiceProxy.Current.AddToCart(productId, quantity);
+                        ShoppingCartService.Current.AddToCart(productId, quantity);
                         break;
                     case '6':
                         //remove item from cart
@@ -100,15 +100,15 @@ namespace eCommerce_Platform
                         productId = int.Parse(Console.ReadLine() ?? "-1");
                         Console.Write("Enter quantity to remove: ");
                         quantity = int.Parse(Console.ReadLine() ?? "0");
-                        ShoppingCartServiceProxy.Current.RemoveFromCart(productId, quantity);
+                        ShoppingCartService.Current.RemoveFromCart(productId, quantity);
                         break;
                     case '7':
                         //view cart
-                        ShoppingCartServiceProxy.Current.ViewCart();
+                        ShoppingCartService.Current.ViewCart();
                         break;
                     case '8':
                         //checkout
-                        ShoppingCartServiceProxy.Current.Checkout();
+                        ShoppingCartService.Current.Checkout();
                         break;
                     case '0':
                         Console.WriteLine("Exiting Program");

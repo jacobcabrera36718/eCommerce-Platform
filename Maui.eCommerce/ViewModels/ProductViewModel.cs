@@ -4,22 +4,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using eCommerce_Platform.Models;
+using Library.eCommerce.Models;
 using Library.eCommerce.Services;
 
 namespace Maui.eCommerce.ViewModels
 {
     public class ProductViewModel
     {
+        private Product? cashedModel {  get; set; }
         public string? Name { 
             get
             {
-                return Model?.Name ?? string.Empty;
+                return Model?.Product?.Name ?? string.Empty;
             }
             set
             {
-                if (Model != null && Model.Name != value)
+                if (Model != null && Model.Product?.Name != value)
                 {
-                    Model.Name = value;
+                    Model.Product.Name = value;
                 }
             }
         }
@@ -36,25 +38,20 @@ namespace Maui.eCommerce.ViewModels
             }
         }
 
-        public Product? Model { get; set; }
+        public Item? Model { get; set; }
 
         public void AddOrUpdate()
         {
-            var product = new Product
-            {
-                Name = Model?.Name,
-                Stock = Model?.Stock ?? 0,
-            };
-
-            ProductServiceProxy.Current.AddOrUpdate(product);
+           ProductServiceProxy.Current.AddOrUpdate(Model);
         }
 
         public ProductViewModel()
         {
-            Model = new Product();
+            Model = new Item();
+            cashedModel = null;
         }
 
-        public ProductViewModel(Product? model)
+        public ProductViewModel(Item? model)
         {
             Model = model;
         }

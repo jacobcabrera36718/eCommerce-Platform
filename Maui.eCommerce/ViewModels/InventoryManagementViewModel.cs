@@ -7,15 +7,16 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using eCommerce_Platform.Models;
+using Library.eCommerce.Models;
 using Library.eCommerce.Services;
 
 namespace Maui.eCommerce.ViewModels
 {
     public class InventoryManagementViewModel : INotifyPropertyChanged
     {
-        private Product? selectedProduct;
+        private Item? selectedProduct;
         public string? Query {  get; set; }
-        public Product? SelectedProduct
+        public Item? SelectedProduct
         {
             get => selectedProduct;
             set
@@ -44,16 +45,16 @@ namespace Maui.eCommerce.ViewModels
         }
 
 
-        public ObservableCollection<Product?> Products 
+        public ObservableCollection<Item?> Products 
         {
             get
             {
-                var filteredList = _svc.Products.Where(p => p?.Name?.ToLower().Contains(Query?.ToLower() ?? String.Empty) ?? false);
-                return new ObservableCollection<Product?>(filteredList);
+                var filteredList = _svc.Products.Where(p => p?.Product?.Name?.ToLower().Contains(Query?.ToLower() ?? String.Empty) ?? false);
+                return new ObservableCollection<Item?>(filteredList);
             }
         }
 
-        public Product? Delete()
+        public Item? Delete()
         {
             var item = _svc.Delete(SelectedProduct?.Id ?? 0);
             NotifyPropertyChanged("Products");

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using eCommerce_Platform.Models;
 using Library.eCommerce.Services;
 
-namespace Maui.eCommerce.ViewModels
+/*namespace Maui.eCommerce.ViewModels
 {
     public class ShoppingManagementViewModel
     {
@@ -17,8 +17,9 @@ namespace Maui.eCommerce.ViewModels
         {
             get
             {
-                return new ObservableCollection<Product?>(_invSvc.Products);
+                return new ObservableCollection<Product?>(_invSvc.Item);
             }
         }
     }
 }
+*/

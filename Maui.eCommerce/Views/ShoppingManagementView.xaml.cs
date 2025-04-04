@@ -3,11 +3,11 @@ using Maui.eCommerce.ViewModels;
 
 namespace Maui.eCommerce.Views;
 
-public partial class ShoppingManagementView : ContentPage
+/*public partial class ShoppingManagementView : ContentPage
 {
 	public ShoppingManagementView()
 	{
-		InitializeComponent();
+        InitializeComponent();
 		BindingContext = new ShoppingManagementViewModel();
 	}
 
@@ -15,4 +15,4 @@ public partial class ShoppingManagementView : ContentPage
     {
 
     }
-}
+}*/
