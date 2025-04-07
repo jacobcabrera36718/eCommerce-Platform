@@ -36,7 +36,7 @@ namespace Maui.eCommerce.ViewModels
             {
                 if(Model != null && Model.Stock != value)
                 {
-                    Model.Stock = (int)value;
+                    Model.Stock = value;
                 }
             }
         }
