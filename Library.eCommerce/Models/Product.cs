@@ -24,6 +24,12 @@ namespace eCommerce_Platform.Models
             } 
         }
 
+        public Product(Product p)
+        {
+            Name = p.Name;
+            Id = p.Id;
+        }
+
         public override string ToString()
         {
             return Display ?? string.Empty;

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization.Metadata;
 using System.Threading.Tasks;
 using eCommerce_Platform.Models;
 
@@ -29,6 +30,14 @@ namespace Library.eCommerce.Models
         public Item()
         {
             Product = new Product();
+            Stock = 0;
+        }
+
+        public Item(Item i)
+        {
+            Product = new Product(i.Product);
+            Stock = i.Stock;
+            Id = i.Id;
         }
     }
 }

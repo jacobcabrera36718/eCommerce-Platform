@@ -17,6 +17,7 @@ public partial class ProductDetailView : ContentPage
 
     private void Add_Return_Clicked(object sender, EventArgs e)
     {
+        (BindingContext as ProductViewModel).Undo();
 		Shell.Current.GoToAsync("//InventoryManagement");
     }
 
