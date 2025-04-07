@@ -12,6 +12,6 @@ public partial class ShoppingManagementView : ContentPage
 
     private void AddToCart_Clicked(object sender, EventArgs e)
     {
-
+		(BindingContext as ShoppingManagementViewModel).PurchaseItem();
     }
 }
