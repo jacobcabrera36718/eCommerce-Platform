@@ -11,7 +11,6 @@ namespace Maui.eCommerce.ViewModels
 {
     public class ProductViewModel
     {
-        private Product? cashedModel {  get; set; }
         public string? Name { 
             get
             {
@@ -26,14 +25,18 @@ namespace Maui.eCommerce.ViewModels
             }
         }
 
-        public int? Stock
+        public int? Stock 
         {
-            get => Model?.Stock;
+            get
+            {
+                return Model?.Stock;
+            }
+
             set
             {
-                if (Model != null && Model.Stock != value)
+                if(Model != null && Model.Stock != value)
                 {
-                    Model.Stock = value ?? 0;
+                    Model.Stock = (int)value;
                 }
             }
         }
@@ -48,7 +51,6 @@ namespace Maui.eCommerce.ViewModels
         public ProductViewModel()
         {
             Model = new Item();
-            cashedModel = null;
         }
 
         public ProductViewModel(Item? model)

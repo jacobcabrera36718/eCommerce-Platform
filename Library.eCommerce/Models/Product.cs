@@ -9,21 +9,18 @@ namespace eCommerce_Platform.Models
     public class Product
     {
         public int? Id { get; set; }
-        public int Stock {  get; set; }
-
         public string? Name { get; set; }
+
         public Product()
         {
             Name = string.Empty;
-            Id = 0;
-            Stock = 0;
         }
 
         public string? Display
         {
             get
             {
-                return $"{Id}. {Name} - Stock: {Stock}";
+                return $"{Id}. {Name}";
             } 
         }
 

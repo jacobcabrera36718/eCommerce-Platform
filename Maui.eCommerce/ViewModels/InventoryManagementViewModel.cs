@@ -14,8 +14,12 @@ namespace Maui.eCommerce.ViewModels
 {
     public class InventoryManagementViewModel : INotifyPropertyChanged
     {
-        private Item? selectedProduct;
+        private Item? selectedProduct {  get; set; }
         public string? Query {  get; set; }
+        private ProductServiceProxy _svc = ProductServiceProxy.Current;
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+
         public Item? SelectedProduct
         {
             get => selectedProduct;
@@ -26,10 +30,9 @@ namespace Maui.eCommerce.ViewModels
 
             }
         }
-        private ProductServiceProxy _svc = ProductServiceProxy.Current;
-        public event PropertyChangedEventHandler? PropertyChanged;
+        
 
-        private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
+        public void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
         {
             if (propertyName is null)
             {

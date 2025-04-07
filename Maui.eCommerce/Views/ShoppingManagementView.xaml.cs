@@ -1,18 +1,9 @@
-
-using Maui.eCommerce.ViewModels;
-
 namespace Maui.eCommerce.Views;
 
-/*public partial class ShoppingManagementView : ContentPage
+public partial class ShoppingManagementView : ContentPage
 {
 	public ShoppingManagementView()
 	{
-        InitializeComponent();
-		BindingContext = new ShoppingManagementViewModel();
+		InitializeComponent();
 	}
-
-    private void AddToCart_Clicked(object sender, EventArgs e)
-    {
-
-    }
-}*/
+}

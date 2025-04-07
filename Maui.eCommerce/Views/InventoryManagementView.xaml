@@ -16,7 +16,7 @@
         </Grid>
  
             <ListView
-            ItemsSource="{Binding Products}"
+            ItemsSource="{Binding Path=Products}"
             SelectedItem="{Binding SelectedProduct}"
             SelectionMode="Single"
             >
