@@ -13,6 +13,11 @@ namespace Library.eCommerce.Models
         public Product Product { get; set; }
         public int? Stock {  get; set; }
 
+        public override string ToString()
+        {
+            return $"{Product}   Stock:{Stock}";
+        }
+
         public string Display
         {
             get
