@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Library.eCommerce.Models;
 
 namespace eCommerce_Platform.Models
 {
@@ -10,6 +11,7 @@ namespace eCommerce_Platform.Models
     {
         public int? Id { get; set; }
         public string? Name { get; set; }
+
 
         public Product()
         {

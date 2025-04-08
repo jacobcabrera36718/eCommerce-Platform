@@ -36,7 +36,7 @@ namespace Library.eCommerce.Services
             items = new List<Item>();
         }
 
-        public Item? AddOrUpdate(Item item) 
+        public Item? PurchaseItem(Item item) 
         {
             var existingInvItem = _prodSvc.GetById(item.Id);
             if (existingInvItem == null || existingInvItem.Stock == 0)
@@ -61,6 +61,31 @@ namespace Library.eCommerce.Services
             }
 
             return existingInvItem;
+        }
+
+        public Item? ReturnItem(Item item)
+        {
+            if (item?.Id <= 0 || item == null)
+            {
+                return null;
+            }
+
+            var itemToReturn = CartItems.FirstOrDefault(c => c.Id == item.Id);
+            if (itemToReturn != null)
+            {
+                itemToReturn.Stock--;
+                var inventoryItem = _prodSvc.Products.FirstOrDefault(p => p.Id == itemToReturn.Id);
+                if(inventoryItem == null)
+                {
+                    _prodSvc.AddOrUpdate(new Item(itemToReturn));
+                }
+                else
+                {
+                    inventoryItem.Stock++;
+                }
+            }
+
+            return itemToReturn;
         }
     }
 }
