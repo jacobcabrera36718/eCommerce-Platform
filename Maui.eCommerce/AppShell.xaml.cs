@@ -9,6 +9,7 @@ namespace Maui.eCommerce
             InitializeComponent();
 
             Routing.RegisterRoute("ProductDetailView", typeof(ProductDetailView));
+            Routing.RegisterRoute("CheckoutDetailView", typeof(CheckoutDetailView));
         }
     }
 }
