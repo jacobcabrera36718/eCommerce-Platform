@@ -19,4 +19,19 @@ public partial class ShoppingManagementView : ContentPage
     {
         (BindingContext as ShoppingManagementViewModel).ReturnItem();
     }
+
+    private async void Checkout_Clicked(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new CheckoutDetailView());
+    }
+
+    private void GoToCheckout_Clicked(object sender, EventArgs e)
+    {
+        Shell.Current.GoToAsync("CheckoutDetailView");
+    }
+
+    private void CheckoutPage_Clicked(object sender, EventArgs e)
+    {
+        Shell.Current.GoToAsync("CheckoutDetailView");
+    }
 }

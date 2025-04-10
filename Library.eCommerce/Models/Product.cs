@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,6 +10,8 @@ namespace eCommerce_Platform.Models
 {
     public class Product
     {
+        public decimal Price { get; set; } 
+
         public int? Id { get; set; }
         public string? Name { get; set; }
 
@@ -16,13 +19,14 @@ namespace eCommerce_Platform.Models
         public Product()
         {
             Name = string.Empty;
+            Price = 0m;
         }
 
         public string? Display
         {
             get
             {
-                return $"{Id}. {Name}";
+                return $"{Id}. {Name} - {Price:C}";
             } 
         }
 
@@ -30,6 +34,7 @@ namespace eCommerce_Platform.Models
         {
             Name = p.Name;
             Id = p.Id;
+            Price = p.Price;
         }
 
         public override string ToString()

@@ -2,11 +2,57 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Maui.eCommerce.Views.CheckoutDetailView"
-             Title="CheckoutDetailView">
-    <VerticalStackLayout>
-        <Label 
-            Text="Checkout!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             Title="Checkout"
+             Shell.NavBarIsVisible="False">
+
+    <ScrollView>
+        <VerticalStackLayout HorizontalOptions="Center"
+                             VerticalOptions="Center"
+                             Spacing="10"
+                             Padding="20">
+
+            <Label Text="-----Order-----"
+                   FontSize="24"
+                   HorizontalTextAlignment="Center" />
+
+            <!-- List each item -->
+            <CollectionView ItemsSource="{Binding CartItems}"
+                            HorizontalOptions="Center">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <VerticalStackLayout HorizontalOptions="Center">
+                            <Label Text="{Binding Product.Name}" 
+                                   HorizontalTextAlignment="Center" />
+                            <Label Text="{Binding Stock}" 
+                                   HorizontalTextAlignment="Center" />
+                            <Label Text="{Binding Product.Price, StringFormat='${0:F2}'}" 
+                                   HorizontalTextAlignment="Center" />
+                        </VerticalStackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <Label Text="--------------------------"
+                   HorizontalTextAlignment="Center" />
+
+            <!-- Subtotal -->
+            <Label Text="{Binding Subtotal, StringFormat='Subtotal: ${0:F2}'}"
+                   HorizontalTextAlignment="Center" />
+
+            <!-- Tax -->
+            <Label Text="{Binding Tax, StringFormat='Tax (7%): ${0:F2}'}"
+                   HorizontalTextAlignment="Center" />
+
+            <!-- Final Total -->
+            <Label Text="{Binding TotalWithTax, StringFormat='Total: ${0:F2}'}"
+                   FontAttributes="Bold"
+                   HorizontalTextAlignment="Center" />
+
+            <Label Text="Thank you for shopping...Come back soon!"
+                   FontSize="20"
+                   HorizontalTextAlignment="Center"
+                   HorizontalOptions="Center" />
+
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>
