@@ -2,17 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Text.Json.Serialization.Metadata;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using eCommerce_Platform.Models;
+using Library.eCommerce.DTO;
 
 namespace Library.eCommerce.Models
 {
     public class Item
     {
         public int Id { get; set; }
-        public Product Product { get; set; }
+        public ProductDTO Product { get; set; }
         public int? Stock {  get; set; }
+        public ICommand? AddCommand { get; set; }
 
         public override string ToString()
         {
@@ -23,21 +25,28 @@ namespace Library.eCommerce.Models
         {
             get
             {
-                return Product?.Display ?? string.Empty;
+                return $"{ Product?.Display ?? string.Empty} Stock - { Stock }";
             }
+        }
+
+        private void DoAdd()
+        {
+
         }
 
         public Item()
         {
-            Product = new Product();
+            Product = new ProductDTO();
             Stock = 0;
+            AddCommand = null;
         }
 
         public Item(Item i)
         {
-            Product = new Product(i.Product);
+            Product = new ProductDTO(i.Product);
             Stock = i.Stock;
             Id = i.Id;
+            //AddCommand = new Command(DoAdd);
         }
     }
 }
