@@ -34,4 +34,9 @@ public partial class ShoppingManagementView : ContentPage
     {
         Shell.Current.GoToAsync("CheckoutDetailView");
     }
+
+    private void InlineAdd_Clicked(object sender, EventArgs e)
+    {
+        (BindingContext as ShoppingManagementViewModel).RefreshProductList();
+    }
 }

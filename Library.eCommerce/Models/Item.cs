@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using eCommerce_Platform.Models;
 using Library.eCommerce.DTO;
+using Library.eCommerce.Services;
 
 namespace Library.eCommerce.Models
 {
@@ -31,14 +32,14 @@ namespace Library.eCommerce.Models
 
         private void DoAdd()
         {
-
+            ShoppingCartService.Current.AddOrUpdate(this);  
         }
 
         public Item()
         {
             Product = new ProductDTO();
             Stock = 0;
-            AddCommand = null;
+            AddCommand = new Command(DoAdd);
         }
 
         public Item(Item i)
@@ -46,7 +47,7 @@ namespace Library.eCommerce.Models
             Product = new ProductDTO(i.Product);
             Stock = i.Stock;
             Id = i.Id;
-            //AddCommand = new Command(DoAdd);
+            AddCommand = new Command(DoAdd);
         }
     }
 }

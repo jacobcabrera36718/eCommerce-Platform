@@ -63,6 +63,37 @@ namespace Library.eCommerce.Services
             return existingInvItem;
         }
 
+        public Item? AddOrUpdate(Item item)
+        {
+            var existingInvItem = _prodSvc.GetById(item.Id);
+            if (existingInvItem == null || existingInvItem.Stock == 0)
+            {
+                return null;
+            }
+
+            if (existingInvItem != null)
+            {
+                existingInvItem.Stock--;
+            }
+
+            var existingItem = CartItems.FirstOrDefault(i => i.Id == item.Id);
+            if (existingItem == null)
+            {
+                //add
+                var newItem = new Item(item);
+                newItem.Stock = 1;
+                CartItems.Add(newItem);
+            }
+            else
+            {
+                //update
+                existingItem.Stock++;
+            }
+
+
+            return existingInvItem;
+        }
+
         public Item? ReturnItem(Item item)
         {
             if (item?.Id <= 0 || item == null)

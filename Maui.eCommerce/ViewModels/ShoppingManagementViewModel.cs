@@ -46,6 +46,12 @@ namespace Maui.eCommerce.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        public void RefreshProductList()
+        {
+            NotifyPropertyChanged(nameof(Inventory));
+            NotifyPropertyChanged(nameof(ShoppingCart));
+        }
+
         public void PurchaseItem()
         {
             if (SelectedItem != null) 
