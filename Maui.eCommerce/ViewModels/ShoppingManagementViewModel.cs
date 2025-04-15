@@ -15,22 +15,22 @@ namespace Maui.eCommerce.ViewModels
     {
         private ProductServiceProxy _invSvc = ProductServiceProxy.Current;
         private ShoppingCartService _cartSvc = ShoppingCartService.Current;
-        public Item? SelectedItem { get; set; }
-        public Item? SelectedCartItem { get; set; }
+        public ItemViewModel? SelectedItem { get; set; }
+        public ItemViewModel? SelectedCartItem { get; set; }
 
-        public ObservableCollection<Item?> Inventory
+        public ObservableCollection<ItemViewModel?> Inventory
         {
             get
             {
-                return new ObservableCollection<Item?>(_invSvc.Products.Where(i => i?.Stock > 0));
+                return new ObservableCollection<ItemViewModel?>(_invSvc.Products.Where(i => i?.Stock > 0).Select(m => new ItemViewModel(m)));
             }
         }
 
-        public ObservableCollection<Item?> ShoppingCart
+        public ObservableCollection<ItemViewModel?> ShoppingCart
         {
             get
             {
-                return new ObservableCollection<Item?>(_cartSvc.CartItems.Where(i => i?.Stock > 0));
+                return new ObservableCollection<ItemViewModel?>(_cartSvc.CartItems.Where(i => i?.Stock > 0).Select(m => new ItemViewModel(m)));
             }
         }
 
@@ -56,8 +56,8 @@ namespace Maui.eCommerce.ViewModels
         {
             if (SelectedItem != null) 
             {
-                var shouldRefresh = SelectedItem.Stock >= 1;
-                var updatedItem = _cartSvc.PurchaseItem(SelectedItem);
+                var shouldRefresh = SelectedItem.Model.Stock >= 1;
+                var updatedItem = _cartSvc.PurchaseItem(SelectedItem.Model);
 
                 if (updatedItem != null && shouldRefresh)
                 {
@@ -73,8 +73,8 @@ namespace Maui.eCommerce.ViewModels
             {
                 if (SelectedCartItem != null)
                 {
-                    var shouldRefresh = SelectedCartItem.Stock >= 1;
-                    var updatedItem = _cartSvc.ReturnItem(SelectedCartItem);
+                    var shouldRefresh = SelectedCartItem.Model.Stock >= 1;
+                    var updatedItem = _cartSvc.ReturnItem(SelectedCartItem.Model);
 
                     if (updatedItem != null && shouldRefresh)
                     {

@@ -7,6 +7,10 @@ using System.Threading.Tasks;
 using eCommerce_Platform.Models;
 using Library.eCommerce.DTO;
 using Library.eCommerce.Models;
+using Microsoft.VisualBasic;
+using Library.eCommerce.util;
+using System.Text.Json.Nodes;
+using Newtonsoft.Json;
 
 namespace Library.eCommerce.Services
 {
@@ -14,12 +18,14 @@ namespace Library.eCommerce.Services
     {
         private ProductServiceProxy()
         {
-            Products = new List<Item?>
-            {
-                new Item{Product = new ProductDTO{Id = 1, Name = "Product 1", Price = 9.99m}, Id = 1, Stock = 1},
-                new Item{Product = new ProductDTO{Id = 2, Name = "Product 2", Price = 19.99m}, Id = 2, Stock = 2},
-                new Item{Product = new ProductDTO{Id = 3, Name = "Product 3", Price = 15.99m}, Id = 3, Stock = 3}
-            };
+            var productPayload = new WebRequestHandler().Get("/Inventory").Result;
+            Products = JsonConvert.DeserializeObject<List<Item>>(productPayload) ?? new List<Item?>();
+            //Products = new List<Item?>
+            //{
+            //    new Item{Product = new ProductDTO{Id = 1, Name = "Product 1", Price = 9.99m}, Id = 1, Stock = 1},
+            //    new Item{Product = new ProductDTO{Id = 2, Name = "Product 2", Price = 19.99m}, Id = 2, Stock = 2},
+            //    new Item{Product = new ProductDTO{Id = 3, Name = "Product 3", Price = 15.99m}, Id = 3, Stock = 3}
+            //};
         }
 
         private int lastKey

@@ -15,7 +15,6 @@ namespace Library.eCommerce.Models
         public int Id { get; set; }
         public ProductDTO Product { get; set; }
         public int? Stock {  get; set; }
-        public ICommand? AddCommand { get; set; }
 
         public override string ToString()
         {
@@ -29,17 +28,10 @@ namespace Library.eCommerce.Models
                 return $"{ Product?.Display ?? string.Empty} Stock - { Stock }";
             }
         }
-
-        private void DoAdd()
-        {
-            ShoppingCartService.Current.AddOrUpdate(this);  
-        }
-
         public Item()
         {
             Product = new ProductDTO();
             Stock = 0;
-            AddCommand = new Command(DoAdd);
         }
 
         public Item(Item i)
@@ -47,7 +39,6 @@ namespace Library.eCommerce.Models
             Product = new ProductDTO(i.Product);
             Stock = i.Stock;
             Id = i.Id;
-            AddCommand = new Command(DoAdd);
         }
     }
 }
