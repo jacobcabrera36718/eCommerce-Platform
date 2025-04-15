@@ -88,10 +88,12 @@ namespace Library.eCommerce.Services
                 return null;
             }
 
+            var result = new WebRequestHandler().Delete($"/Inventory/Delete/{id}").Result;
+
             Item? product = Products.FirstOrDefault(p => p.Id == id);
             Products.Remove(product);
 
-            return product;
+            return JsonConvert.DeserializeObject<Item>(result);
         }
 
         public Item? GetById(int id)
