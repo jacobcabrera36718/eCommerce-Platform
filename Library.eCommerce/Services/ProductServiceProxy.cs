@@ -28,17 +28,17 @@ namespace Library.eCommerce.Services
             //};
         }
 
-        private int lastKey
-        {
-            get
-            {
-                if (!Products.Any())
-                {
-                    return 0;
-                }
-                return Products.Select(p => p?.Id ?? 0).Max();
-            }
-        }
+        //private int lastKey
+        //{
+        //    get
+        //    {
+        //        if (!Products.Any())
+        //        {
+        //            return 0;
+        //        }
+        //        return Products.Select(p => p?.Id ?? 0).Max();
+        //    }
+        //}
 
         private static ProductServiceProxy? instance;
         private static object instanceLock = new object();
@@ -62,24 +62,31 @@ namespace Library.eCommerce.Services
 
         public Item AddOrUpdate(Item item)
         {
+            //call web service
+            var response = new WebRequestHandler().Post("/Inventory", item).Result;
+            var newItem = JsonConvert.DeserializeObject<Item>(response);
+
+            if (newItem == null)
+            {
+                return item;
+            }
+
             if (item.Id == 0)
             {
-                item.Id = lastKey + 1;
-                item.Product.Id = item.Id;
-                Products.Add(item);
+                //item.Id = lastKey + 1;
+                //item.Product.Id = item.Id;
+                Products.Add(newItem);
             }
+
             else
             {
                 var existingItem = Products.FirstOrDefault(p => p.Id == item.Id);
                 var index = Products.IndexOf(existingItem);
                 Products.RemoveAt(index);
-                Products.Insert(index, new Item(item));
+                Products.Insert(index, new Item(newItem));
             }
-
             return item;
         }
-
-       
 
         public Item? Delete(int id)
         {
