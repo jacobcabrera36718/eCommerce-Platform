@@ -11,12 +11,18 @@ namespace Maui.eCommerce.ViewModels
 {
     public class ItemViewModel
     {
+        public int StockToAdd { get; set; } = 1;
+
         public Item Model { get; set; }
          public ICommand? AddCommand { get; set; }
         private void DoAdd()
         {
-            ShoppingCartService.Current.AddOrUpdate(Model);
+            for (int i = 0; i < StockToAdd; i++)
+            {
+                ShoppingCartService.Current.AddOrUpdate(Model);
+            }
         }
+
         void SetUpCommands()
         {
             AddCommand = new Command(DoAdd);
