@@ -40,5 +40,7 @@ namespace Library.eCommerce.Models
             Stock = i.Stock;
             Id = i.Id;
         }
+
+
     }
 }

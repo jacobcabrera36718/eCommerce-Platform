@@ -40,6 +40,6 @@ public partial class InventoryManagementView : ContentPage
 
     private void Search_Clicked(object sender, EventArgs e)
     {
-        (BindingContext as InventoryManagementViewModel)?.RefreshProductList();
+        (BindingContext as InventoryManagementViewModel)?.Search();
     }
 }

@@ -10,6 +10,8 @@ namespace Maui.eCommerce
 
             Routing.RegisterRoute("ProductDetailView", typeof(ProductDetailView));
             Routing.RegisterRoute("CheckoutDetailView", typeof(Maui.eCommerce.Views.CheckoutDetailView));
+            Routing.RegisterRoute("SettingsPage", typeof(SettingsView));
+
         }
     }
 }

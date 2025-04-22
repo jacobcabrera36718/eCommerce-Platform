@@ -57,6 +57,13 @@ namespace Maui.eCommerce.ViewModels
             }
         }
 
+        public async Task<bool> Search()
+        {
+            await _svc.Search(Query);
+            NotifyPropertyChanged(nameof(Products));
+            return true;
+        }
+
         public Item? Delete()
         {
             var item = _svc.Delete(SelectedProduct?.Id ?? 0);

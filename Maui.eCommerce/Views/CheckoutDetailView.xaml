@@ -40,7 +40,7 @@
                    HorizontalTextAlignment="Center" />
 
             <!-- Tax -->
-            <Label Text="{Binding Tax, StringFormat='Tax (7%): ${0:F2}'}"
+            <Label Text="{Binding Tax, StringFormat='Tax: ${0:F2}'}"
                    HorizontalTextAlignment="Center" />
 
             <!-- Final Total -->

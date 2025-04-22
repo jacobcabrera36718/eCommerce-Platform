@@ -20,7 +20,7 @@ public partial class CheckoutDetailView : ContentPage
             ShoppingCartService.Current.CartItems.Where(i => i?.Stock > 0));
 
         Subtotal = CartItems.Sum(item => (item?.Stock ?? 0) * (item?.Product?.Price ?? 0m));
-        Tax = Subtotal * 0.07m;
+        Tax = Subtotal * (decimal)Preferences.Get("TaxRate", 0.07);
         TotalWithTax = Subtotal + Tax;
 
         BindingContext = this;

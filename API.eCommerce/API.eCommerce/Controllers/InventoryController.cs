@@ -3,6 +3,7 @@ using API.eCommerce.EC;
 using eCommerce_Platform.Models;
 using Library.eCommerce.DTO;
 using Library.eCommerce.Models;
+using Library.eCommerce.util;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.eCommerce.Controllers
@@ -42,6 +43,12 @@ namespace API.eCommerce.Controllers
         {
             var newItem = new InventoryEC().AddOrUpdate(item);
             return item;
+        }
+
+        [HttpPost("Search")]
+        public IEnumerable<Item> Search([FromBody] QueryRequest query)
+        {
+            return new InventoryEC().Get(query.Query);
         }
     }
 }
