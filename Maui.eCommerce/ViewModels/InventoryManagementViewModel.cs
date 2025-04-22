@@ -53,6 +53,14 @@ namespace Maui.eCommerce.ViewModels
             get
             {
                 var filteredList = _svc.Products.Where(p => p?.Product?.Name?.ToLower().Contains(Query?.ToLower() ?? String.Empty) ?? false);
+                if (SelectedSortOption == "Price")
+                {
+                    filteredList = filteredList.OrderBy(p => p?.Product?.Price);
+                }
+                else
+                {
+                    filteredList = filteredList.OrderBy(p => p?.Product?.Name);
+                }
                 return new ObservableCollection<Item?>(filteredList);
             }
         }
@@ -69,6 +77,15 @@ namespace Maui.eCommerce.ViewModels
             var item = _svc.Delete(SelectedProduct?.Id ?? 0);
             NotifyPropertyChanged("Products");
             return item;
+        }
+
+        public string SelectedSortOption { get; set; } = "Name"; // Default
+
+        public List<string> SortOptions => new List<string> { "Name", "Price" };
+
+        public void SortChanged()
+        {
+            NotifyPropertyChanged(nameof(Products));
         }
     }
 }

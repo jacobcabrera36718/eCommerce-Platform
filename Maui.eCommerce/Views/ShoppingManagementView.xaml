@@ -1,76 +1,88 @@
-<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Maui.eCommerce.Views.ShoppingManagementView"
              Title="ShoppingManagementView">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/><!--Store-->
-            <ColumnDefinition/><!--SHopping Cart-->
-        </Grid.ColumnDefinitions>
 
-        <!--store-->
-        <Grid Grid.Column="0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="10*"/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-            <ListView Grid.Row="0" ItemsSource="{Binding Inventory}" SelectedItem="{Binding SelectedItem}">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition Width="5*"/>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition Width="Auto"/>
-                                </Grid.ColumnDefinitions>
-                                <Label Grid.Column="0" Text="{Binding Model.Id}"/>
-                                <Label Grid.Column="1" Text="{Binding Model.Product.Name}"/>
-                                <Label Grid.Column="2" Text="Stock:"/>
-                                <Label Grid.Column="3" Text="{Binding Model.Stock}"/>
-                                <Entry Grid.Column="4"
-                                   Text="{Binding StockToAdd}"
-                                   WidthRequest="40"
-                                   Keyboard="Numeric"
-                                   HorizontalTextAlignment="Center"
-                                   Placeholder="1"/>
-                                 <Button Grid.Column="5"
-                                    Text="+"
-                                    Command="{Binding AddCommand}"
-                                    Clicked="InlineAdd_Clicked"/>   
-                            </Grid>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-             </ListView>
-            <Button Grid.Row="1" Text="+" Clicked="AddToCart_Clicked"/>
-        </Grid>
+    <VerticalStackLayout Spacing="10" Padding="10">
 
-        <!--shopping cart-->
-        <Grid Grid.Column="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="10*"/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
+        <!-- Sort Picker -->
+        <Picker Title="Sort by"
+                ItemsSource="{Binding SortOptions}"
+                SelectedItem="{Binding SelectedSortOption}"
+                SelectedIndexChanged="SortOptionChanged"
+                HorizontalOptions="Center"
+                Margin="0,0,0,10"/>
+
+        <!-- Main Grid -->
+        <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
+                <ColumnDefinition/>
+                <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <ListView Grid.Row="0" ItemsSource="{Binding ShoppingCart}" SelectedItem="{Binding SelectedCartItem}">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <Label Text="{Binding Model.Display}"/>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-            <Button Grid.Row="1" Grid.Column="0" Text="-" Clicked="RemoveFromCart_Clicked"/>
-            <Button Grid.Row="1" Grid.Column="1" Text="Checkout" Clicked="CheckoutPage_Clicked"/>
+
+            <!-- store -->
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="10*" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <ListView Grid.Row="0" ItemsSource="{Binding Inventory}" SelectedItem="{Binding SelectedItem}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition Width="5*" />
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Column="0" Text="{Binding Model.Id}" />
+                                    <Label Grid.Column="1" Text="{Binding Model.Product.Name}" />
+                                    <Label Grid.Column="2" Text="Stock:" />
+                                    <Label Grid.Column="3" Text="{Binding Model.Stock}" />
+                                    <Entry Grid.Column="4"
+                                           Text="{Binding StockToAdd}"
+                                           WidthRequest="40"
+                                           Keyboard="Numeric"
+                                           HorizontalTextAlignment="Center"
+                                           Placeholder="1" />
+                                    <Button Grid.Column="5"
+                                            Text="+"
+                                            Command="{Binding AddCommand}"
+                                            Clicked="InlineAdd_Clicked" />
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <Button Grid.Row="1" Text="+" Clicked="AddToCart_Clicked" />
+            </Grid>
+
+            <!-- shopping cart -->
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="10*" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <ListView Grid.Row="0" ItemsSource="{Binding ShoppingCart}" SelectedItem="{Binding SelectedCartItem}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Label Text="{Binding Model.Display}" />
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <Button Grid.Row="1" Grid.Column="0" Text="-" Clicked="RemoveFromCart_Clicked" />
+                <Button Grid.Row="1" Grid.Column="1" Text="Checkout" Clicked="CheckoutPage_Clicked" />
+            </Grid>
         </Grid>
-    </Grid>
+    </VerticalStackLayout>
 </ContentPage>

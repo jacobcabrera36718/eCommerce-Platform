@@ -22,6 +22,16 @@ namespace Maui.eCommerce.ViewModels
         {
             get
             {
+                var items = _invSvc.Products.Where(i => i?.Stock > 0);
+
+                if (SelectedSortOption == "Price")
+                {
+                    items = items.OrderBy(i => i?.Product?.Price);
+                }
+                else
+                {
+                    items = items.OrderBy(i => i?.Product?.Name);
+                }
                 return new ObservableCollection<ItemViewModel?>(_invSvc.Products.Where(i => i?.Stock > 0).Select(m => new ItemViewModel(m)));
             }
         }
@@ -30,6 +40,16 @@ namespace Maui.eCommerce.ViewModels
         {
             get
             {
+                var items = _cartSvc.CartItems.Where(i => i?.Stock > 0);
+
+                if (SelectedSortOption == "Price")
+                {
+                    items = items.OrderBy(i => i?.Product?.Price);
+                }
+                else
+                {
+                    items = items.OrderBy(i => i?.Product?.Name);
+                }
                 return new ObservableCollection<ItemViewModel?>(_cartSvc.CartItems.Where(i => i?.Stock > 0).Select(m => new ItemViewModel(m)));
             }
         }
@@ -84,5 +104,16 @@ namespace Maui.eCommerce.ViewModels
                 }
             }
         }
+
+        public string SelectedSortOption { get; set; } = "Name";
+        public List<string> SortOptions => new List<string> { "Name", "Price" };
+
+        public void SortChanged()
+        {
+            NotifyPropertyChanged(nameof(Inventory));
+            NotifyPropertyChanged(nameof(ShoppingCart));
+        }
+
+
     }
 }

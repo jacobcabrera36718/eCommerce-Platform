@@ -42,4 +42,10 @@ public partial class InventoryManagementView : ContentPage
     {
         (BindingContext as InventoryManagementViewModel)?.Search();
     }
+
+    private void SortOptionChanged(object sender, EventArgs e)
+    {
+        (BindingContext as InventoryManagementViewModel)?.SortChanged();
+    }
+
 }

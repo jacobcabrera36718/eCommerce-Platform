@@ -14,8 +14,14 @@
             <Entry Text="{Binding Query}" Grid.Column="0"/>
             <Button Text="Search" Grid.Column="1" Clicked="Search_Clicked"/>
         </Grid>
- 
-            <ListView
+
+        <Picker Title="Sort by"
+        ItemsSource="{Binding SortOptions}"
+        SelectedItem="{Binding SelectedSortOption}"
+        SelectedIndexChanged="SortOptionChanged"/>
+
+
+        <ListView
             ItemsSource="{Binding Path=Products}"
             SelectedItem="{Binding SelectedProduct}"
             SelectionMode="Single"

@@ -39,4 +39,10 @@ public partial class ShoppingManagementView : ContentPage
     {
         (BindingContext as ShoppingManagementViewModel).RefreshProductList();
     }
+
+    private void SortOptionChanged(object sender, EventArgs e)
+    {
+        (BindingContext as ShoppingManagementViewModel)?.SortChanged();
+    }
+
 }
