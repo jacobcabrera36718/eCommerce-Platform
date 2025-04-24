@@ -23,7 +23,7 @@ namespace API.eCommerce.EC
             var itemToDelete = Filebase.Current.Inventory.FirstOrDefault(i => i?.Id == id);
             if (itemToDelete != null)
             {
-                Filebase.Current.Delete(itemToDelete);
+                //Filebase.Current.Delete(itemToDelete);
             }
             return itemToDelete;
         }
