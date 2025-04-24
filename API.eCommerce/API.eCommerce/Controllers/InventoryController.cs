@@ -1,5 +1,5 @@
 using System.Diagnostics;
-using API.eCommerce.EC;
+using Api.eCommerce.EC;
 using eCommerce_Platform.Models;
 using Library.eCommerce.DTO;
 using Library.eCommerce.Models;

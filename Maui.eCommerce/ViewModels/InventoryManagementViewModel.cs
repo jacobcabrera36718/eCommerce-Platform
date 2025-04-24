@@ -52,7 +52,7 @@ namespace Maui.eCommerce.ViewModels
         {
             get
             {
-                var filteredList = _svc.Products.Where(p => p?.Product?.Name?.ToLower().Contains(Query?.ToLower() ?? String.Empty) ?? false);
+                var filteredList = _svc.Products.Where(p => p?.Product?.Name?.ToLower().Contains(Query?.ToLower() ?? string.Empty) ?? false); 
                 if (SelectedSortOption == "Price")
                 {
                     filteredList = filteredList.OrderBy(p => p?.Product?.Price);

@@ -1,14 +1,15 @@
-﻿using System.Reflection.Metadata.Ecma335;
-using Api.eCommerce.Database;
+﻿using Api.eCommerce.Database;
 using API.eCommerce.Database;
-using eCommerce_Platform.Models;
 using Library.eCommerce.DTO;
 using Library.eCommerce.Models;
+using eCommerce_Platform.Models;
 
-namespace API.eCommerce.EC
+namespace Api.eCommerce.EC
 {
+
     public class InventoryEC
     {
+
         public List<Item?> Get()
         {
             return Filebase.Current.Inventory;
@@ -18,6 +19,7 @@ namespace API.eCommerce.EC
         {
             return FakeDatabase.Search(query).Take(100) ?? new List<Item>();
         }
+
         public Item? Delete(int id)
         {
             var itemToDelete = Filebase.Current.Inventory.FirstOrDefault(i => i?.Id == id);
@@ -25,8 +27,10 @@ namespace API.eCommerce.EC
             {
                 //Filebase.Current.Delete(itemToDelete);
             }
+
             return itemToDelete;
         }
+
         public Item? AddOrUpdate(Item item)
         {
             //if (item.Id == 0)
@@ -34,9 +38,7 @@ namespace API.eCommerce.EC
             //    item.Id = Filebase.Current.LastKey + 1;
             //    item.Product.Id = item.Id;
             //    Filebase.Current.Inventory.Add(item);
-            //}
-            //else
-            //{
+            //} else {
             //    var existingItem = Filebase.Current.Inventory.FirstOrDefault(p => p.Id == item.Id);
             //    var index = Filebase.Current.Inventory.IndexOf(existingItem);
             //    Filebase.Current.Inventory.RemoveAt(index);

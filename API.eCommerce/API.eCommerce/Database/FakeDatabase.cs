@@ -35,7 +35,7 @@ namespace API.eCommerce.Database
 
         public static IEnumerable<Item> Search(string? query)
         {
-            return Inventory.Where(p => p?.Product?.Name?.ToLower().Contains(query?.ToLower() ?? String.Empty) ?? false);
+            return Inventory.Where(p => p?.Product?.Name?.ToLower().Contains(query?.ToLower() ?? string.Empty) ?? false);
         }
     }
 }

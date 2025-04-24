@@ -11,7 +11,7 @@ namespace Library.eCommerce.util
         public string Query { get; set; }
         public QueryRequest()
         {
-            Query = String.Empty;
+            Query = string.Empty;
         }
     }
 }
