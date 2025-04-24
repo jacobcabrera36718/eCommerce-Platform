@@ -9,14 +9,16 @@ namespace Library.eCommerce.Services
     public class ShoppingCartService
     {
         private ProductServiceProxy _prodSvc = ProductServiceProxy.Current;
-        private List<Item> items;
-        public List<Item> CartItems
+
+        // Multi-cart/wishlist implementation
+        private Dictionary<string, List<Item>> carts = new()
         {
-            get
-            {
-                return items;
-            }
-        }
+            { "Default", new List<Item>() },
+        };
+        public List<string> CartNames => carts.Keys.ToList();
+        public string SelectedCartName { get; set; } = "Default";
+        public List<Item> CartItems => carts[SelectedCartName];
+
         public static ShoppingCartService Current
         {
             get
@@ -25,7 +27,6 @@ namespace Library.eCommerce.Services
                 {
                     instance = new ShoppingCartService();
                 }
-
                 return instance;
             }
         }
@@ -33,10 +34,9 @@ namespace Library.eCommerce.Services
 
         private ShoppingCartService()
         {
-            items = new List<Item>();
         }
 
-        public Item? PurchaseItem(Item item) 
+        public Item? PurchaseItem(Item item)
         {
             var existingInvItem = _prodSvc.GetById(item.Id);
             if (existingInvItem == null || existingInvItem.Stock == 0)
@@ -48,12 +48,13 @@ namespace Library.eCommerce.Services
                 existingInvItem.Stock--;
             }
 
-            var existingItem = CartItems.FirstOrDefault(i => i.Id == item.Id);
-            if(existingItem == null)
+            var currentCart = carts[SelectedCartName];
+            var existingItem = currentCart.FirstOrDefault(i => i.Id == item.Id);
+            if (existingItem == null)
             {
                 var newItem = new Item(item);
                 newItem.Stock = 1;
-                CartItems.Add(newItem);
+                currentCart.Add(newItem);
             }
             else
             {
@@ -70,27 +71,23 @@ namespace Library.eCommerce.Services
             {
                 return null;
             }
-
             if (existingInvItem != null)
             {
                 existingInvItem.Stock--;
             }
 
-            var existingItem = CartItems.FirstOrDefault(i => i.Id == item.Id);
+            var currentCart = carts[SelectedCartName];
+            var existingItem = currentCart.FirstOrDefault(i => i.Id == item.Id);
             if (existingItem == null)
             {
-                //add
                 var newItem = new Item(item);
                 newItem.Stock = 1;
-                CartItems.Add(newItem);
+                currentCart.Add(newItem);
             }
             else
             {
-                //update
                 existingItem.Stock++;
             }
-
-
             return existingInvItem;
         }
 
@@ -101,12 +98,13 @@ namespace Library.eCommerce.Services
                 return null;
             }
 
-            var itemToReturn = CartItems.FirstOrDefault(c => c.Id == item.Id);
+            var currentCart = carts[SelectedCartName];
+            var itemToReturn = currentCart.FirstOrDefault(c => c.Id == item.Id);
             if (itemToReturn != null)
             {
                 itemToReturn.Stock--;
                 var inventoryItem = _prodSvc.Products.FirstOrDefault(p => p.Id == itemToReturn.Id);
-                if(inventoryItem == null)
+                if (inventoryItem == null)
                 {
                     _prodSvc.AddOrUpdate(new Item(itemToReturn));
                 }
@@ -118,5 +116,19 @@ namespace Library.eCommerce.Services
 
             return itemToReturn;
         }
+
+        public string AddNewWishlist()
+        {
+            int index = 1;
+            string name;
+            do
+            {
+                name = $"Wishlist {index}";
+                index++;
+            } while (carts.ContainsKey(name));
+            carts.Add(name, new List<Item>());
+            return name;
+        }
+
     }
 }

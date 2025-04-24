@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using Library.eCommerce.Models;
 using Library.eCommerce.Services;
 
@@ -18,23 +19,38 @@ namespace Maui.eCommerce.ViewModels
         public ItemViewModel? SelectedItem { get; set; }
         public ItemViewModel? SelectedCartItem { get; set; }
 
+        // Cart selection properties
+        public List<string> CartNames => _cartSvc.CartNames;
+
+        public string SelectedCartName
+        {
+            get => _cartSvc.SelectedCartName;
+            set
+            {
+                if (_cartSvc.SelectedCartName != value)
+                {
+                    _cartSvc.SelectedCartName = value;
+                    NotifyPropertyChanged(nameof(ShoppingCart));
+                }
+            }
+        }
+
         public ObservableCollection<ItemViewModel?> Inventory
         {
             get
             {
                 var items = _invSvc.Products.Where(i => i?.Stock > 0);
 
+                // Sort by selected option
                 if (SelectedSortOption == "Price")
-                {
                     items = items.OrderBy(i => i?.Product?.Price);
-                }
                 else
-                {
                     items = items.OrderBy(i => i?.Product?.Name);
-                }
-                return new ObservableCollection<ItemViewModel?>(_invSvc.Products.Where(i => i?.Stock > 0).Select(m => new ItemViewModel(m)));
+
+                return new ObservableCollection<ItemViewModel?>(items.Select(m => new ItemViewModel(m)));
             }
         }
+
 
         public ObservableCollection<ItemViewModel?> ShoppingCart
         {
@@ -42,17 +58,16 @@ namespace Maui.eCommerce.ViewModels
             {
                 var items = _cartSvc.CartItems.Where(i => i?.Stock > 0);
 
+                // Sort by selected option
                 if (SelectedSortOption == "Price")
-                {
                     items = items.OrderBy(i => i?.Product?.Price);
-                }
                 else
-                {
                     items = items.OrderBy(i => i?.Product?.Name);
-                }
-                return new ObservableCollection<ItemViewModel?>(_cartSvc.CartItems.Where(i => i?.Stock > 0).Select(m => new ItemViewModel(m)));
+
+                return new ObservableCollection<ItemViewModel?>(items.Select(m => new ItemViewModel(m)));
             }
         }
+
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -62,7 +77,6 @@ namespace Maui.eCommerce.ViewModels
             {
                 throw new ArgumentNullException(nameof(propertyName));
             }
-
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
@@ -72,9 +86,15 @@ namespace Maui.eCommerce.ViewModels
             NotifyPropertyChanged(nameof(ShoppingCart));
         }
 
+        public void SortChanged()
+        {
+            NotifyPropertyChanged(nameof(Inventory));
+            NotifyPropertyChanged(nameof(ShoppingCart));
+        }
+
         public void PurchaseItem()
         {
-            if (SelectedItem != null) 
+            if (SelectedItem != null)
             {
                 var shouldRefresh = SelectedItem.Model.Stock >= 1;
                 var updatedItem = _cartSvc.PurchaseItem(SelectedItem.Model);
@@ -89,7 +109,7 @@ namespace Maui.eCommerce.ViewModels
 
         public void ReturnItem()
         {
-            if(SelectedItem != null)
+            if (SelectedItem != null)
             {
                 if (SelectedCartItem != null)
                 {
@@ -105,13 +125,35 @@ namespace Maui.eCommerce.ViewModels
             }
         }
 
-        public string SelectedSortOption { get; set; } = "Name";
-        public List<string> SortOptions => new List<string> { "Name", "Price" };
-
-        public void SortChanged()
+        public ICommand AddWishlistCommand { get; }
+        public ShoppingManagementViewModel()
         {
-            NotifyPropertyChanged(nameof(Inventory));
-            NotifyPropertyChanged(nameof(ShoppingCart));
+            AddWishlistCommand = new Command(AddWishlist);
+        }
+
+        private void AddWishlist()
+        {
+            var newName = _cartSvc.AddNewWishlist();
+            NotifyPropertyChanged(nameof(CartNames));
+            SelectedCartName = newName; 
+        }
+
+        public List<string> SortOptions { get; } = new List<string> { "Name", "Price" };
+
+        private string _selectedSortOption = "Name";
+        public string SelectedSortOption
+        {
+            get => _selectedSortOption;
+            set
+            {
+                if (_selectedSortOption != value)
+                {
+                    _selectedSortOption = value;
+                    NotifyPropertyChanged(nameof(SelectedSortOption));
+                    NotifyPropertyChanged(nameof(Inventory));
+                    NotifyPropertyChanged(nameof(ShoppingCart));
+                }
+            }
         }
 
 
