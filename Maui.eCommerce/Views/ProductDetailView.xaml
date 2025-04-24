@@ -20,6 +20,14 @@
         <Entry
             Text="{Binding Stock}"
             />
+        <Label Text="Price:"
+           VerticalOptions="Center"
+           HorizontalOptions="Center"/>
+        <Entry 
+            Text="{Binding Price}"
+            Keyboard="Numeric"
+            Placeholder="0.00"
+            />
         <Button
             Text="Submit"
             Clicked="Submit_Clicked"
