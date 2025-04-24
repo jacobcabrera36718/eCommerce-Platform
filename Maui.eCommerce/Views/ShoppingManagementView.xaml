@@ -64,6 +64,8 @@
             <!-- shopping cart -->
             <Grid Grid.Column="1">
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <!-- Add Picker Row -->
                     <RowDefinition Height="10*" />
                     <RowDefinition />
                 </Grid.RowDefinitions>
@@ -71,7 +73,22 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <ListView Grid.Row="0" ItemsSource="{Binding ShoppingCart}" SelectedItem="{Binding SelectedCartItem}">
+
+                <!-- Wishlist / Cart Picker (new) -->
+                <HorizontalStackLayout Grid.Row="0" Grid.ColumnSpan="2" Spacing="10" HorizontalOptions="Center">
+                    <Picker
+                        ItemsSource="{Binding CartNames}"
+                        SelectedItem="{Binding SelectedCartName}"
+                        Title="Choose Cart"
+                        WidthRequest="150"/>
+                                    <Button
+                        Text="+ Wishlist"
+                        Command="{Binding AddWishlistCommand}"
+                        WidthRequest="100"/>
+                </HorizontalStackLayout>
+
+
+                <ListView Grid.Row="1" Grid.ColumnSpan="2" ItemsSource="{Binding ShoppingCart}" SelectedItem="{Binding SelectedCartItem}">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
@@ -80,8 +97,8 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-                <Button Grid.Row="1" Grid.Column="0" Text="-" Clicked="RemoveFromCart_Clicked" />
-                <Button Grid.Row="1" Grid.Column="1" Text="Checkout" Clicked="CheckoutPage_Clicked" />
+                <Button Grid.Row="2" Grid.Column="0" Text="-" Clicked="RemoveFromCart_Clicked" />
+                <Button Grid.Row="2" Grid.Column="1" Text="Checkout" Clicked="CheckoutPage_Clicked" />
             </Grid>
         </Grid>
     </VerticalStackLayout>
