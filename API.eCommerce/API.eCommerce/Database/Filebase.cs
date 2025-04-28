@@ -95,11 +95,17 @@ namespace Api.eCommerce.Database
         }
 
 
-        public bool Delete(string type, string id)
+        public bool Delete(int id)
         {
-            //TODO: refer to AddOrUpdate for an idea of how you can implement this.
-            return true;
+            string path = $"{_productRoot}\\{id}.json";
+            if (File.Exists(path))
+            {
+                File.Delete(path);
+                return true; 
+            }
+            return false; 
         }
+
     }
 
 

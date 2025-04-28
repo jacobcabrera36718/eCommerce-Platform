@@ -42,7 +42,7 @@ namespace API.eCommerce.Controllers
         public Item? AddOrUpdate([FromBody]Item item)
         {
             var newItem = new InventoryEC().AddOrUpdate(item);
-            return item;
+            return newItem;
         }
 
         [HttpPost("Search")]

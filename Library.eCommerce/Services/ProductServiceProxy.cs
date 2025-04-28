@@ -96,7 +96,7 @@ namespace Library.eCommerce.Services
                 Products.RemoveAt(index);
                 Products.Insert(index, new Item(newItem));
             }
-            return item;
+            return newItem;
         }
 
         public Item? Delete(int id)
@@ -113,6 +113,7 @@ namespace Library.eCommerce.Services
 
             return JsonConvert.DeserializeObject<Item>(result);
         }
+
 
         public Item? GetById(int id)
         {

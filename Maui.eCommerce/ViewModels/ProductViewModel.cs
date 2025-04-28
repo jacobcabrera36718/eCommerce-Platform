@@ -59,8 +59,20 @@ namespace Maui.eCommerce.ViewModels
 
         public void AddOrUpdate()
         {
-           ProductServiceProxy.Current.AddOrUpdate(Model);
+            var updated = ProductServiceProxy.Current.AddOrUpdate(Model);
+            if (updated != null && Model != null)
+            {
+                Model.Id = updated.Id;
+                if (Model.Product != null && updated.Product != null)
+                {
+                    Model.Product.Id = updated.Product.Id;
+                    Model.Product.Name = updated.Product.Name;
+                    Model.Product.Price = updated.Product.Price;
+                }
+                Model.Stock = updated.Stock;
+            }
         }
+
 
         public void Undo()
         {
